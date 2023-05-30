@@ -1,0 +1,50 @@
+{
+  "name": "dummy-no-test-app",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/dummy-no-test-app/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/dummy-no-test-app",
+        "main": "apps/dummy-no-test-app/src/main.ts",
+        "tsConfig": "apps/dummy-no-test-app/tsconfig.app.json",
+        "assets": ["apps/dummy-no-test-app/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/dummy-no-test-app/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "dummy-no-test-app:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "dummy-no-test-app:build:development"
+        },
+        "production": {
+          "buildTarget": "dummy-no-test-app:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/dummy-no-test-app/**/*.ts"]
+      }
+    }
+  },
+  "tags": []
+}
